@@ -12,11 +12,11 @@ cursor = connection.cursor()
 for row in cursor.execute('SELECT * FROM Data ORDER BY likes DESC'):
     print(row)
 print('')
-# посмотрим, в какой час фотографии набирали больше лайков (будем сначала сортировать по количеству постов, а уже потом смотреть на сумму лайков)
+# посмотрим, в какой час фотографии набирали больше лайков 
 for row in cursor.execute('SELECT COUNT(id) AS count, SUM(likes) AS sum_likes, SUM(likes)/COUNT(id) AS average, hour_of_publication FROM Data GROUP BY hour_of_publication ORDER BY average DESC'):
     print(row)
 print('')
-# посмотрим, в какой день недели (дни недели указаны цифрами, где воскресенье = 0) фотографии набирали больше лайков (будем сначала сортировать по количеству постов, а уже потом смотреть на сумму лайков)
+# посмотрим, в какой день недели (дни недели указаны цифрами, где воскресенье = 0) фотографии набирали больше лайков 
 for row in cursor.execute('SELECT COUNT(id) AS count, SUM(likes) AS sum_likes, SUM(likes)/COUNT(id) AS average, strftime("%w", date_of_publication) AS day from Data GROUP BY day ORDER BY average DESC'):
     print(row)
 print('')
